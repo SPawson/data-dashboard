@@ -14,6 +14,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import { useMediaQuery } from "@mui/material";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -42,6 +43,7 @@ const Header = () => {
   };
 
   const { data: session } = useSession();
+  const tabletCheck = useMediaQuery("(min-width: 768px)");
   const userName = session?.user?.name as string;
   const avatarUrl = session?.user?.image as string;
 
@@ -65,7 +67,7 @@ const Header = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            Datasoft
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -134,9 +136,11 @@ const Header = () => {
               </Button>
             ))}
           </Box>
-          <Box sx={{ paddingRight: 5 }}>
-            <Typography>Welcome {session?.user?.name}</Typography>
-          </Box>
+          {tabletCheck && (
+            <Box sx={{ paddingRight: 5 }}>
+              <Typography>Welcome {session?.user?.name}</Typography>
+            </Box>
+          )}
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open profile settings">
